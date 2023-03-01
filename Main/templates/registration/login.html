@@ -1,0 +1,14 @@
+{% extends 'Main/base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+    <h1>{{ title }}</h1>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-dark">Войти</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

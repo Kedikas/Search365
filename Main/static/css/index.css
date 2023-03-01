@@ -1,0 +1,11 @@
+.mySearch{
+    margin: 30px 20%;
+    display: flex;
+    flex-direction: row;
+}
+.password{
+    padding-left: 50px !important;
+}
+.logo{
+    font: 50px "Helvetica Neue";
+}

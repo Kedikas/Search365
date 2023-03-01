@@ -1,0 +1,60 @@
+{% extends "Main/base.html" %}
+{% block title %} Search 365 {% endblock %}
+{% block content %}
+    <form method="get">
+        <div class="row mySearch">
+            <div class="col">
+                <input name="q" class="form-control" type="text" placeholder="Search" aria-label="Search">
+            </div>
+            <div class="col">
+                <select name="by" class="form-control">
+                    <option value="1">Dupa nume și prenume</option>
+                    <option value="2">Dupa facultatea/departamentul/specialitatea</option>
+                    <option value="3">Dupa Email</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <table class="table table-hover">
+    <tr class="table-dark">
+        <th>Nume</th>
+        <th>Prenume</th>
+        <th>Facultate/Departament</th>
+        <th>Specialitate</th>
+        <th>Functie</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Note</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    {% if request.user.is_authenticated %}
+    {% for entry in object_list %}
+        <tr>
+            <td>{{ entry.nume }}</td>
+            <td>{{ entry.prenume }}</td>
+            <td>{{ entry.facultate }}</td>
+            <td>{{ entry.specialitate }}</td>
+            <td>{{ entry.functie }}</td>
+            <td>{{ entry.email }}</td>
+            <td>
+                <details>
+                    <summary>Пароль</summary>
+                    {{ entry.password }}
+                </details>
+            </td>
+            <td>{{ entry.note }}</td>
+            <td>
+                {% if entry.status %} Enabled {% else %} Disabled {% endif %}
+            </td>
+            <td>
+                <a class="btn btn-dark" href="{% url 'search365:edit_entry' pk=entry.pk %}">
+                    <span class="glyphicon glyphicon-pencil">Edit</span>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    {% endif %}
+    </table>
+    {% include "Main/paginator.html" with page=page_obj %}
+{% endblock %}
